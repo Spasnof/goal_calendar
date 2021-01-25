@@ -15,13 +15,14 @@ diet_choice_weights = {
 
 exercise_choice_weights = {
     'break': 10,
-    '10k steps': 20,
-    'core and back': 20,
-    'legs': 20,
-    'arm strength': 20,
+    'hip openers'
+    '10k steps': 25,
+    'core and back': 15,
+    'legs': 15,
+    'arm strength': 15,
     'bike': 10,
     'hour+ outside or moderate chores': 10,
-    'stretch session / yoga': 25
+    'stretch session / yoga': 20
 }
 
 growth_choice_weights = {
