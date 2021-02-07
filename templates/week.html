@@ -1,13 +1,14 @@
 <!doctype html>
 <head>
-    <title>Hello from Flask</title>
+    <title>So who goes first?</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<h1>Hello, this is your calendar for the week! the seed is {{seed}} </h1>
+<h1>Hello, this is your stand up order for iso year {{ isocal[0] }} iso week {{ isocal[1] }}</h1>
 <table>
     <colgroup>
         <col style="background-color: yellow" span="2">
+
     </colgroup>
     <tr>
         <td>&nbsp;</td>
@@ -20,43 +21,33 @@
         <th>Saturday</th>
     </tr>
     <tr>
-        <th>Diet</th>
-        <td>{{ pick_random(diet, seed)[0] }}</td>
-        <td>{{ pick_random(diet, seed)[1] }}</td>
-        <td>{{ pick_random(diet, seed)[2] }}</td>
-        <td>{{ pick_random(diet, seed)[3] }}</td>
-        <td>{{ pick_random(diet, seed)[4] }}</td>
-        <td>{{ pick_random(diet, seed)[5] }}</td>
-        <td>{{ pick_random(diet, seed)[6] }}</td>
+        <th>First</th>
+        <td></td>
+        <td>{{ pick_random(people,weeknumber,1)[0] }}</td>
+        <td>{{ pick_random(people,weeknumber,2)[0] }}</td>
+        <td>{{ pick_random(people,weeknumber,3)[0] }}</td>
+        <td>{{ pick_random(people,weeknumber,4)[0] }}</td>
+        <td>{{ pick_random(people,weeknumber,5)[0] }}</td>
+        <td></td>
     </tr>
     <tr>
-        <th>Exercise</th>
-        <td>{{ pick_random(exercise, seed)[0] }}</td>
-        <td>{{ pick_random(exercise, seed)[1] }}</td>
-        <td>{{ pick_random(exercise, seed)[2] }}</td>
-        <td>{{ pick_random(exercise, seed)[3] }}</td>
-        <td>{{ pick_random(exercise, seed)[4] }}</td>
-        <td>{{ pick_random(exercise, seed)[5] }}</td>
-        <td>{{ pick_random(exercise, seed)[6] }}</td>
+        <th>Second</th>
+        <td></td>
+        <td>{{ pick_random(people,weeknumber,1)[1] }}</td>
+        <td>{{ pick_random(people,weeknumber,2)[1] }}</td>
+        <td>{{ pick_random(people,weeknumber,3)[1] }}</td>
+        <td>{{ pick_random(people,weeknumber,4)[1] }}</td>
+        <td>{{ pick_random(people,weeknumber,5)[1] }}</td>
+        <td></td>
     </tr>
     <tr>
-        <th>Growth</th>
-        <td>{{ pick_random(social, seed)[0] }}</td>
-        <td>{{ pick_random(social, seed)[1] }}</td>
-        <td>{{ pick_random(social, seed)[2] }}</td>
-        <td>{{ pick_random(social, seed)[3] }}</td>
-        <td>{{ pick_random(social, seed)[4] }}</td>
-        <td>{{ pick_random(social, seed)[5] }}</td>
-        <td>{{ pick_random(social, seed)[6] }}</td>
-    </tr>
-        <tr>
-        <th>Wife Sign off</th>
+        <th>Third</th>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{ pick_random(people,weeknumber,1)[2] }}</td>
+        <td>{{ pick_random(people,weeknumber,2)[2] }}</td>
+        <td>{{ pick_random(people,weeknumber,3)[2] }}</td>
+        <td>{{ pick_random(people,weeknumber,4)[2] }}</td>
+        <td>{{ pick_random(people,weeknumber,5)[2] }}</td>
         <td></td>
     </tr>
 </table>

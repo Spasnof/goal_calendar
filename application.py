@@ -1,38 +1,12 @@
 from flask import Flask, url_for
 import random, sys
+from datetime import date
 
 app = Flask(__name__)
 app.config.update(TEMPLATES_AUTO_RELOAD=True)
 from flask import render_template
 
-diet_choice_weights = {
-    'no alchohol': 50,
-    'break': 10,
-    'vegetarian': 15,
-    '1500 calories': 22,
-    'fast one meal': 22,
-}
-
-exercise_choice_weights = {
-    'break': 10,
-    'hip openers'
-    '10k steps': 25,
-    'core and back': 15,
-    'legs': 15,
-    'arm strength': 15,
-    'bike': 10,
-    'hour+ outside or moderate chores': 10,
-    'stretch session / yoga': 20
-}
-
-growth_choice_weights = {
-    'break': 25,
-    'cloud infra focus': 40,
-    'raw code focus': 25,
-    'trello board management': 10,
-    'tidy up github': 25,
-}
-
+people = ['joe','matt','josh']
 
 
 def pick_random(choice_weights, choice_seed=None, ):
@@ -44,22 +18,22 @@ def pick_random(choice_weights, choice_seed=None, ):
         random_choices.append(random.choices(choices, weights)[0])
     return random_choices
 
+def shuffle_random(people: list, weeknumber, day_of_week):
+    new_people = people.copy()
+    seed = int(f'{weeknumber}{day_of_week}')
+    random.seed(seed)
+    random.shuffle(new_people)
+    return new_people
+
 
 @app.route('/')
 def render():
-    seed = random.randrange(sys.maxsize)
+    year, week_num, _ = date.today().isocalendar()
+    weeknumber = (int(f'{year}{week_num}'))
     return render_template('week.html',
-                           seed=seed,
-                           pick_random=pick_random,
-                           social=growth_choice_weights,
-                           diet=diet_choice_weights,
-                           exercise=exercise_choice_weights)
-@app.route('/<seed>')
-def render_seed(seed):
-    return render_template('week.html',
-                           seed=seed,
-                           pick_random=pick_random,
-                           social=growth_choice_weights,
-                           diet=diet_choice_weights,
-                           exercise=exercise_choice_weights)
+                           weeknumber=weeknumber,
+                           pick_random=shuffle_random,
+                           people=people,
+                           isocal = date.today().isocalendar()
+                        )
 
