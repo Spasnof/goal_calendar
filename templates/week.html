@@ -4,51 +4,37 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<h1>Hello, this is your stand up order for iso year {{ isocal[0] }} iso week {{ isocal[1] }}</h1>
+<h1>Hello {{ pm }}, </h1>
+    <h2> This is your random stand up order for iso year-week {{ year }}-{{ week_num }} </h2>
 <table>
     <colgroup>
         <col style="background-color: yellow" span="2">
 
     </colgroup>
+
     <tr>
         <td>&nbsp;</td>
-        <th>Sunday</th>
         <th>Monday</th>
-        <th>Tuesday</th>
+        <th>Tuesday</th> 
         <th>Wednesday</th>
         <th>Thursday</th>
         <th>Friday</th>
-        <th>Saturday</th>
     </tr>
+    {% for person in people %}
     <tr>
-        <th>First</th>
-        <td></td>
-        <td>{{ pick_random(people,weeknumber,1)[0] }}</td>
-        <td>{{ pick_random(people,weeknumber,2)[0] }}</td>
-        <td>{{ pick_random(people,weeknumber,3)[0] }}</td>
-        <td>{{ pick_random(people,weeknumber,4)[0] }}</td>
-        <td>{{ pick_random(people,weeknumber,5)[0] }}</td>
-        <td></td>
+        <th>{{ placement[loop.index0] }}</th>
+        <td>{{ pick_random(people,weeknumber,1)[loop.index0] }}</td>
+        <td>{{ pick_random(people,weeknumber,2)[loop.index0] }}</td>
+        <td>{{ pick_random(people,weeknumber,3)[loop.index0] }}</td>
+        <td>{{ pick_random(people,weeknumber,4)[loop.index0] }}</td>
+        <td>{{ pick_random(people,weeknumber,5)[loop.index0] }}</td>
     </tr>
-    <tr>
-        <th>Second</th>
-        <td></td>
-        <td>{{ pick_random(people,weeknumber,1)[1] }}</td>
-        <td>{{ pick_random(people,weeknumber,2)[1] }}</td>
-        <td>{{ pick_random(people,weeknumber,3)[1] }}</td>
-        <td>{{ pick_random(people,weeknumber,4)[1] }}</td>
-        <td>{{ pick_random(people,weeknumber,5)[1] }}</td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Third</th>
-        <td></td>
-        <td>{{ pick_random(people,weeknumber,1)[2] }}</td>
-        <td>{{ pick_random(people,weeknumber,2)[2] }}</td>
-        <td>{{ pick_random(people,weeknumber,3)[2] }}</td>
-        <td>{{ pick_random(people,weeknumber,4)[2] }}</td>
-        <td>{{ pick_random(people,weeknumber,5)[2] }}</td>
-        <td></td>
-    </tr>
+    {% endfor %}
 </table>
+
+<p>
+    <cite>
+        * Random is deterministic seed based on ordering of team members, year, week, and day of week
+    </cite>
+</p>
 </body>

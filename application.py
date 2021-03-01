@@ -6,17 +6,22 @@ app = Flask(__name__)
 app.config.update(TEMPLATES_AUTO_RELOAD=True)
 from flask import render_template
 
-people = ['joe','matt','josh']
+gfa = ['Joe', 'Matt', 'Josh', 'Susy', 'Evan']
+core = ['Brian', 'Quji', 'Susy']
+engine = ['Taichi', 'Sam', 'Don', 'Dennis', 'Sean']
+placement = {
+    0: 'First',
+    1: 'Second',
+    2: 'Third',
+    3: 'Fourth',
+    4: 'Fifth',
+    5: 'Sixth',
+    6: 'Seventh, You should probably get a smaller team',
+    7: 'Eighth, Like really this is getting silly',
+    8: 'Tenth, is it lunch yet?',
+    9: '9000 years later...',
+}
 
-
-def pick_random(choice_weights, choice_seed=None, ):
-    random.seed(choice_seed)
-    choices = list(choice_weights.keys())
-    weights = list(choice_weights.values())
-    random_choices = []
-    for i in range(7):
-        random_choices.append(random.choices(choices, weights)[0])
-    return random_choices
 
 def shuffle_random(people: list, weeknumber, day_of_week):
     new_people = people.copy()
@@ -26,14 +31,50 @@ def shuffle_random(people: list, weeknumber, day_of_week):
     return new_people
 
 
-@app.route('/')
-def render():
-    year, week_num, _ = date.today().isocalendar()
+def render_team_for_today(pm_name, people, isoCal=date.today().isocalendar() ):
+    year, week_num, _ = isoCal
     weeknumber = (int(f'{year}{week_num}'))
     return render_template('week.html',
+                           pm=pm_name,
+                           placement=placement,
+                           year=year,
+                           week_num=week_num,
                            weeknumber=weeknumber,
+                           isoCal=isoCal,
                            pick_random=shuffle_random,
-                           people=people,
-                           isocal = date.today().isocalendar()
-                        )
+                           people=people
+                           )
 
+
+@app.route('/')
+def gfa_render_default():
+    return render_team_for_today("Austin", gfa)
+
+@app.route('/gfa')
+def gfa_render():
+    return render_team_for_today("Austin", gfa)
+
+@app.route('/core')
+def core_render():
+    return render_team_for_today("Ken", core)
+
+@app.route('/engine')
+def engine_render():
+    return render_team_for_today("Austin", engine)
+
+# TODO look into https://flask.palletsprojects.com/en/1.1.x/quickstart/#url-building to avoid this hack.
+@app.route('/<int:year>/<int:week>')
+def gfa_render_default2(year, week):
+    return render_team_for_today("Austin", gfa, (year, week, -1))
+
+@app.route('/gfa/<int:year>/<int:week>')
+def gfa_render2(year, week):
+    return render_team_for_today("Austin", gfa, (year, week, -1))
+
+@app.route('/core/<int:year>/<int:week>')
+def core_render2(year, week):
+    return render_team_for_today("Ken", core, (year, week, -1))
+
+@app.route('/engine/<int:year>/<int:week>')
+def engine_render2(year, week):
+    return render_team_for_today("Austin", engine, (year, week, -1))
